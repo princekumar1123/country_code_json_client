@@ -1,0 +1,30 @@
+<div class="mainContainer">
+  <h1 class="h1">JSON TABLE</h1>
+  <div id="outline">
+    <mat-form-field class="searchBox">
+      <mat-label>Filter</mat-label>
+      <input matInput type="text" placeholder="search" (keyup)="applyFilter($event)">
+    </mat-form-field>
+  </div>
+  <div class="tableText">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element" class="nametd" id="name"> {{element.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef> Country Code </th>
+        <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+      </ng-container>
+      <ng-container matColumnDef="noRecords">
+        <td mat-footer-cell *matFooterCellDef class="footer">
+          No data found..!
+        </td>
+      </ng-container>
+      <tr mat-footer-row *matFooterRowDef="!dataSource.filteredData.length ? ['noRecords'] : []" colspan="2"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr ngFor="let i of index" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="success(row.name)  "
+        [ngStyle]="{'background-color' :(countryNames.includes(row.name))? 'Green' : 'white'}"></tr>
+    </table>
+  </div>
+</div>
